@@ -583,6 +583,7 @@
 .sz-cta1{background:var(--coral);color:#fff!important}.sz-cta2{background:#fff;color:#141414!important;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 #szf,#rf{scroll-margin-top:80px}</style>
 <style>.k-logo{position:absolute;top:calc(32px + env(safe-area-inset-top,0px));left:max(clamp(20px,7vw,140px),env(safe-area-inset-left,0px));z-index:5;display:block}.k-logo img{height:26px;width:auto;display:block}</style>
+<style>.hero-f{display:flex;gap:8px;flex-wrap:wrap}.hero-f input{min-width:0;width:260px;max-width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:11px 14px;color:#fff;font:15px var(--sans)}.hero-f input::placeholder{color:rgba(255,255,255,.55)}.hero-f input:focus{outline:2px solid var(--coral);outline-offset:1px}.hero-f .btn1{border:0;cursor:pointer;font:600 15px var(--sans);padding:11px 20px;border-radius:4px;background:var(--coral);color:#fff;text-transform:none;letter-spacing:0}.hero-f{align-items:stretch}.ctas{flex-wrap:wrap}</style>
 </head>
 <body>
   <div class="stage">
@@ -599,7 +600,7 @@
   <main>
     <h1>Tu nuevo<br>compañero<br>de atención<br>al cliente</h1>
     <p class="tagline">Uno más. <em>Mucho más.</em></p>
-    <div class="ctas"><a class="btn1" id="cta1" href="#sorteo">Reserva tu demo</a><p class="hnote">Haz tu demo y entra en el sorteo de Konvo gratis para Black Friday y Navidad.</p></div>
+    <div class="ctas"><form class="hero-f" id="heroF"><input type="email" name="email" required autocomplete="email" placeholder="tu@tienda.com" aria-label="Email"><button type="submit" class="btn1" id="cta1">Reserva tu demo</button></form><p class="hnote">Haz tu demo y entra en el sorteo de Konvo gratis para Black Friday y Navidad.</p></div>
 
   </main>
   <aside class="side">
@@ -652,8 +653,7 @@
     <ol class="sz-steps"><li><b>1</b><div>Reserva tu demo<span>antes del 6 de noviembre</span></div></li><li><b>2</b><div>Haz tu demo<span>entras en el sorteo y de paso te llevas una auditoría gratis de tu atención al cliente</span></div></li><li><b>3</b><div>Ganador<span>lunes 9 de noviembre</span></div></li></ol>
     <form class="sz-f" id="szf">
       <div class="sz-row"><label>Nombre<input name="firstName" required autocomplete="given-name" placeholder="Tu nombre"></label><label>Email de trabajo<input type="email" name="email" required autocomplete="email" placeholder="tu@tienda.com"></label></div>
-      <div class="sz-row"><label>Web de tu tienda<input name="web" required inputmode="url" placeholder="tutienda.com"></label><label>Teléfono<input type="tel" name="tel" required inputmode="tel" autocomplete="tel" placeholder="+34 600 000 000"></label></div>
-      <label>Mensajes de clientes al mes<select name="volume" required><option value="">Elige</option><option>&lt; 500</option><option>500 – 2.000</option><option>2.000 – 10.000</option><option>&gt; 10.000</option></select></label>
+      <div class="sz-row"><label>Web de tu tienda<input name="web" required inputmode="url" placeholder="tutienda.com"></label></div>
       <label><span>¿Te recomienda alguien? <span style="opacity:.7">(opcional)</span></span><input name="refby" placeholder="Nombre de su tienda"></label>
       <label class="sz-ck"><input type="checkbox" required><span>Acepto las <a href="bases.html" target="_blank">bases del sorteo</a> y la <a href="https://konvoai.com/privacy" target="_blank">política de privacidad</a>.</span></label>
       <button type="submit" class="btn1" id="szBtn">Reserva tu demo</button>
@@ -752,7 +752,7 @@
   if(window.__k2phase>=3){var c=f.querySelector('[name=sorteo]');c.closest('label').style.display='none'}
   function open(e){e.preventDefault();document.getElementById('szf').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){document.querySelector('#szf input').focus({preventScroll:true})},800)}
   function close(){m.classList.remove('on')}
-  document.getElementById('cta1').addEventListener('click',open);
+  
   document.getElementById('wlX').addEventListener('click',close);m.addEventListener('click',function(e){if(e.target===m)close()});addEventListener('keydown',function(e){if(e.key==='Escape')close()});
   f.addEventListener('submit',function(e){e.preventDefault();var n=(f.elements['name'].value||'').trim().split(' ')[0],trip=f.elements['sorteo'].checked;
     document.getElementById('wfOkT').textContent='Demo reservada'+(n?', '+n:'');
@@ -780,11 +780,11 @@ var on=false;new IntersectionObserver(function(e){on=e[0].isIntersecting}).obser
 <script>(function(){var f=document.getElementById('f');if(!f)return;function ex(){if(f.classList.contains('exp'))return;f.classList.add('exp');f.querySelectorAll('.xf input,.xf select').forEach(function(x){x.required=true})}f.addEventListener('focusin',ex);f.addEventListener('pointerdown',ex)})();</script>
 <script>(function(){var f=document.getElementById('szf');if(!f)return;var q=new URLSearchParams(location.search),ref=q.get('ref')||'';
   f.addEventListener('submit',function(e){e.preventDefault();var b=document.getElementById('szBtn'),er=document.getElementById('szErr');er.hidden=true;b.disabled=true;b.textContent='Un momento…';
-    var rb=(f.elements.refby.value||'').trim(),n=f.elements.firstName.value.trim(),m=f.elements.email.value.trim(),w=f.elements.web.value.trim(),tl=f.elements.tel.value.trim(),vo=f.elements.volume.value;
+    var rb=(f.elements.refby.value||'').trim(),n=f.elements.firstName.value.trim(),m=f.elements.email.value.trim(),w=f.elements.web.value.trim();
     var body='firstName='+encodeURIComponent(n)+'&email='+encodeURIComponent(m)+'&userGroup=k2_landing&source='+encodeURIComponent('k2'+(rb?' recomienda:'+rb:'')+(ref?' ref:'+ref:'')+(q.get('utm_campaign')?' '+q.get('utm_campaign'):''));
     fetch('https://app.loops.so/api/newsletter-form/cmrj0tyja0dsd0j0zaamy3edq',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body}).then(function(r){return r.ok||r.status===409}).catch(function(){return false}).then(function(ok){
       if(!ok){er.hidden=false;b.disabled=false;b.textContent='Reserva tu demo';return}
-      try{window.top.location.href='https://calendly.com/ignasi-konvoai/intro-konvo-blackfriday?name='+encodeURIComponent(n)+'&email='+encodeURIComponent(m)+'&a1='+encodeURIComponent(w+' · '+tl+' · '+vo+' mensajes/mes')+(q.get('utm_source')?'&utm_source='+encodeURIComponent(q.get('utm_source')):'')+(q.get('utm_campaign')?'&utm_campaign='+encodeURIComponent(q.get('utm_campaign')):'');}catch(e){location.href='https://calendly.com/ignasi-konvoai/intro-konvo-blackfriday?name='+encodeURIComponent(n)+'&email='+encodeURIComponent(m)+'&a1='+encodeURIComponent(w+' · '+tl+' · '+vo+' mensajes/mes')+(q.get('utm_source')?'&utm_source='+encodeURIComponent(q.get('utm_source')):'')+(q.get('utm_campaign')?'&utm_campaign='+encodeURIComponent(q.get('utm_campaign')):'');}
+      try{window.top.location.href='https://calendly.com/ignasi-konvoai/intro-konvo-blackfriday?name='+encodeURIComponent(n)+'&email='+encodeURIComponent(m)+'&a1='+encodeURIComponent(w)+(q.get('utm_source')?'&utm_source='+encodeURIComponent(q.get('utm_source')):'')+(q.get('utm_campaign')?'&utm_campaign='+encodeURIComponent(q.get('utm_campaign')):'');}catch(e){location.href='https://calendly.com/ignasi-konvoai/intro-konvo-blackfriday?name='+encodeURIComponent(n)+'&email='+encodeURIComponent(m)+'&a1='+encodeURIComponent(w)+(q.get('utm_source')?'&utm_source='+encodeURIComponent(q.get('utm_source')):'')+(q.get('utm_campaign')?'&utm_campaign='+encodeURIComponent(q.get('utm_campaign')):'');}
     });
   });
     document.querySelectorAll('a[href="#embarque"],a[href="#sorteo"],#openTrip').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();document.getElementById('sorteo').scrollIntoView({behavior:'smooth'})})});
@@ -813,5 +813,11 @@ addEventListener('scroll',function(){if(busy)return;var y=scrollY,top=z.getBound
  if(passed&&y<last&&y<end-4&&y>top){busy=true;passed=false;scrollTo({top:Math.max(0,top-innerHeight*.35),behavior:'instant'});setTimeout(function(){busy=false;last=scrollY},60);return}
  if(y<top)passed=false;last=y},{passive:true});})();</script>
 <script>document.querySelectorAll('.sz-ctas a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));t.scrollIntoView({behavior:'smooth',block:'center'});var i=t.querySelector('input');if(i)setTimeout(function(){i.focus({preventScroll:true})},800)})});</script>
+<script>(function(){var f=document.getElementById('heroF');if(!f)return;var q=new URLSearchParams(location.search),ref=q.get('ref')||'';
+f.addEventListener('submit',function(e){e.preventDefault();var b=document.getElementById('cta1'),m=f.elements.email.value.trim();b.disabled=true;
+var body='email='+encodeURIComponent(m)+'&userGroup=k2_landing&source='+encodeURIComponent('k2 hero'+(ref?' ref:'+ref:'')+(q.get('utm_campaign')?' '+q.get('utm_campaign'):''));
+fetch('https://app.loops.so/api/newsletter-form/cmrj0tyja0dsd0j0zaamy3edq',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body}).catch(function(){}).then(function(){
+var u='https://calendly.com/ignasi-konvoai/intro-konvo-blackfriday?email='+encodeURIComponent(m)+(q.get('utm_source')?'&utm_source='+encodeURIComponent(q.get('utm_source')):'')+(q.get('utm_campaign')?'&utm_campaign='+encodeURIComponent(q.get('utm_campaign')):'');
+try{window.top.location.href=u}catch(x){location.href=u}});});})();</script>
 </body>
 </html>
