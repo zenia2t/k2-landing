@@ -578,6 +578,10 @@
 <style>#szBtn,#rfBtn{text-transform:none!important;letter-spacing:0!important}</style>
 <style>.sz .sz-ck{margin-top:18px}</style>
 <style>.sz-lead b{background:none!important}</style>
+<style>.sz-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.sz-ctas a{display:inline-flex;align-items:center;border-radius:4px;padding:11px 20px;font:600 15px var(--sans);text-decoration:none}
+.sz-cta1{background:var(--coral);color:#fff!important}.sz-cta2{background:#fff;color:#141414!important;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+#szf,#rf{scroll-margin-top:80px}</style>
 </head>
 <body>
   <div class="stage">
@@ -640,6 +644,7 @@
       <p class="sz-k" style="text-align:center">Sorteo de lanzamiento · hasta el 6 de noviembre</p>
       <h2 class="sz-h">¿Y si este <span>Black Friday</span> tu atención al cliente no se desborda?</h2>
       <p class="sz-lead">Entre las tiendas que hagan la demo, sorteamos <b>Konvo gratis durante Black Friday y Navidad</b>.</p>
+      <div class="sz-ctas"><a class="sz-cta1" href="#szf">Reserva tu demo</a><a class="sz-cta2" href="#rf">Ya soy cliente</a></div>
     </div>
     <p class="sz-how">Cómo participar</p>
     <ol class="sz-steps"><li><b>1</b><div>Reserva tu demo<span>antes del 6 de noviembre</span></div></li><li><b>2</b><div>Haz tu demo<span>entras en el sorteo y te llevas la auditoría</span></div></li><li><b>3</b><div>Ganador<span>lunes 9 de noviembre</span></div></li></ol>
@@ -652,7 +657,7 @@
       <button type="submit" class="btn1" id="szBtn">Reserva tu demo</button>
       <p class="sz-err" id="szErr" hidden>No hemos podido guardar tus datos. Prueba otra vez o escríbenos a hola@konvoai.com.</p>
     </form>
-    <div class="rf">
+    <div class="rf" id="rf">
       <h3 class="rf-h">¿Ya eres cliente? Recomienda Konvo a otra tienda</h3>
       <p class="rf-p">Si una tienda hace la demo con tu enlace antes del 6 de noviembre, entras en el sorteo de Black Friday y Navidad gratis. Cada tienda que traes, una participación más.</p>
       <div class="rf-gen"><input id="rfIn" inputmode="url" placeholder="tutienda.com" aria-label="Web de tu tienda"><button type="button" class="btn1" id="rfBtn">Crear mi enlace</button></div>
@@ -743,7 +748,7 @@
 <script>(function(){var m=document.getElementById('wl'),f=document.getElementById('wf');
   if(window.__k2phase>=2){document.getElementById('wlT').textContent='Pide tu demo';document.getElementById('wlSub').textContent='Te enseñamos Konvo 2.0 con tu tienda en 30 minutos y, al hacerla, entras en el sorteo de Konvo gratis para Black Friday y Navidad.';document.getElementById('wfBtn').textContent='Pedir demo'}
   if(window.__k2phase>=3){var c=f.querySelector('[name=sorteo]');c.closest('label').style.display='none'}
-  function open(e){e.preventDefault();document.getElementById('sorteo').scrollIntoView({behavior:'smooth'});setTimeout(function(){document.querySelector('#szf input').focus({preventScroll:true})},700)}
+  function open(e){e.preventDefault();document.getElementById('szf').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){document.querySelector('#szf input').focus({preventScroll:true})},800)}
   function close(){m.classList.remove('on')}
   document.getElementById('cta1').addEventListener('click',open);
   document.getElementById('wlX').addEventListener('click',close);m.addEventListener('click',function(e){if(e.target===m)close()});addEventListener('keydown',function(e){if(e.key==='Escape')close()});
@@ -805,5 +810,6 @@ addEventListener('scroll',function(){if(busy)return;var y=scrollY,top=z.getBound
  if(y>=end-2)passed=true;
  if(passed&&y<last&&y<end-4&&y>top){busy=true;passed=false;scrollTo({top:Math.max(0,top-innerHeight*.35),behavior:'instant'});setTimeout(function(){busy=false;last=scrollY},60);return}
  if(y<top)passed=false;last=y},{passive:true});})();</script>
+<script>document.querySelectorAll('.sz-ctas a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));t.scrollIntoView({behavior:'smooth',block:'center'});var i=t.querySelector('input');if(i)setTimeout(function(){i.focus({preventScroll:true})},800)})});</script>
 </body>
 </html>
